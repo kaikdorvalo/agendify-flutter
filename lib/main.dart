@@ -1,4 +1,5 @@
 import 'package:agendify/auth/ui/screens/signin_screen.dart';
+import 'package:agendify/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -29,10 +30,12 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color.fromARGB(255, 250, 250, 250),
+        ),
         useMaterial3: true,
       ),
-      home: SignInScreen(),
+      home: HomeScreen(),
     );
   }
 }

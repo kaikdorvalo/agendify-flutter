@@ -1,3 +1,4 @@
+import 'package:agendify/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -14,6 +15,26 @@ class _SignInScreenState extends State<SignInScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   _LoginData loginData = _LoginData();
 
+  void _submit() {
+    _formKey.currentState?.save();
+
+    if (authSignIn()) {
+      goToHomeScreen();
+    }
+  }
+
+  void goToHomeScreen() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => HomeScreen()),
+    );
+  }
+
+  bool authSignIn() {
+    return (loginData.email == 'example@gmail.com' &&
+        loginData.password == '123');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +49,9 @@ class _SignInScreenState extends State<SignInScreen> {
         key: _formKey,
         child: ListView(
           children: <Widget>[
+            const SizedBox(
+              height: 50.0,
+            ),
             Container(
               padding: const EdgeInsets.all(10.0),
               child: Row(
@@ -89,6 +113,9 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
                 decoration: const InputDecoration(
                   hintText: 'email@example.com',
+                  hintStyle: TextStyle(
+                    color: Color.fromARGB(255, 158, 158, 158),
+                  ),
                   labelText: 'Email',
                   labelStyle: TextStyle(
                     color: Color.fromARGB(255, 158, 158, 158),
@@ -143,7 +170,39 @@ class _SignInScreenState extends State<SignInScreen> {
                   loginData.password = value!;
                 },
               ),
-            )
+            ),
+            const SizedBox(
+              height: 40.0,
+            ),
+            GestureDetector(
+                onTap: () {
+                  _submit();
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    gradient: const LinearGradient(
+                      colors: [
+                        Color.fromARGB(255, 113, 190, 68),
+                        Color.fromARGB(255, 0, 134, 76)
+                      ],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ),
+                  ),
+                  height: 59.0,
+                  width: MediaQuery.of(context).size.width,
+                  child: const Center(
+                    child: Text(
+                      'Entrar',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ))
           ],
         ),
       ),
