@@ -1,4 +1,6 @@
 import 'package:agendify/home/models/scheduling_model.dart';
+import 'package:agendify/shared/components/drop_list_component.dart';
+import 'package:agendify/shared/components/navigation_bottom_component.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        title: const Text('Agendamentos'),
         shape: const Border(
           bottom: BorderSide(
             color: Color.fromARGB(255, 201, 201, 201), // Cor da borda
@@ -31,17 +33,10 @@ class _HomeScreenState extends State<HomeScreen> {
         height: MediaQuery.of(context).size.height,
         padding: const EdgeInsets.all(20.0),
         child: Column(
-          children: <Widget>[],
+          children: <Widget>[DropList()],
         ),
       ),
-
-      floatingActionButton: FloatingActionButton(
-        onPressed: _newScheduling,
-        foregroundColor: Colors.white,
-        backgroundColor: const Color.fromARGB(255, 0, 134, 76),
-        tooltip: 'Register',
-        child: const Icon(Icons.add),
-      ), // Thi
+      bottomNavigationBar: NavigationBottom(),
     );
   }
 }
