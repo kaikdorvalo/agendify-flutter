@@ -1,4 +1,4 @@
-import 'package:agendify/home/models/person_model.dart';
+import 'package:agendify/shared/models/person_model.dart';
 
 class Scheduling {
   Person _person;

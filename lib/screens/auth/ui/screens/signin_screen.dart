@@ -1,4 +1,4 @@
-import 'package:agendify/home/screens/home_screen.dart';
+import 'package:agendify/screens/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class SignInScreen extends StatefulWidget {
