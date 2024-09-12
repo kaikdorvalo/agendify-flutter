@@ -1,9 +1,9 @@
 import 'package:agendify/shared/models/person_model.dart';
 
 class Scheduling {
-  Person _person;
-  String _description;
-  DateTime _date;
+  Person person;
+  String description;
+  DateTime date;
 
-  Scheduling(this._person, this._description, this._date);
+  Scheduling(this.person, this.description, this.date);
 }

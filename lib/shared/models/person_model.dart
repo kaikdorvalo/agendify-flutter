@@ -1,6 +1,6 @@
 class Person {
-  String _cpf;
-  String _nome;
+  String cpf;
+  String nome;
 
-  Person(this._cpf, this._nome);
+  Person(this.cpf, this.nome);
 }
