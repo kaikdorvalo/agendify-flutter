@@ -102,7 +102,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 borderRadius: BorderRadius.circular(20.0),
                 border: const Border(
                     bottom: BorderSide(
-                  color: Color.fromARGB(255, 0, 134, 76),
+                  color: Color.fromARGB(255, 33, 149, 243),
                   width: 2.0,
                 )),
               ),
@@ -122,7 +122,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   icon: Icon(
                     Icons.email,
-                    color: Color.fromARGB(255, 0, 134, 76),
+                    color: Color.fromARGB(255, 33, 149, 243),
                   ),
                   border: InputBorder.none,
                 ),
@@ -146,7 +146,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 borderRadius: BorderRadius.circular(20.0),
                 border: const Border(
                     bottom: BorderSide(
-                  color: Color.fromARGB(255, 0, 134, 76),
+                  color: Color.fromARGB(255, 33, 149, 243),
                   width: 2.0,
                 )),
               ),
@@ -162,7 +162,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   icon: Icon(
                     Icons.key,
-                    color: Color.fromARGB(255, 0, 134, 76),
+                    color: Color.fromARGB(255, 33, 149, 243),
                   ),
                   border: InputBorder.none,
                 ),
@@ -183,8 +183,8 @@ class _SignInScreenState extends State<SignInScreen> {
                     borderRadius: BorderRadius.circular(20.0),
                     gradient: const LinearGradient(
                       colors: [
-                        Color.fromARGB(255, 113, 190, 68),
-                        Color.fromARGB(255, 0, 134, 76)
+                        Color.fromARGB(255, 129, 202, 250),
+                        Color.fromARGB(255, 20, 101, 187),
                       ],
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,

@@ -32,7 +32,7 @@ class _NavigationBottomState extends State<NavigationBottom> {
         ),
       ],
       currentIndex: _selectedIndex,
-      selectedItemColor: const Color.fromARGB(255, 0, 203, 34),
+      selectedItemColor: Color.fromARGB(255, 0, 55, 133),
       onTap: _onItemTapped,
     );
   }
