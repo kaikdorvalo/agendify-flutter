@@ -1,4 +1,5 @@
 import 'package:agendify/screens/home/screens/home_screen.dart';
+import 'package:agendify/screens/main/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -26,7 +27,7 @@ class _SignInScreenState extends State<SignInScreen> {
   void goToHomeScreen() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => HomeScreen()),
+      MaterialPageRoute(builder: (context) => MainScreen()),
     );
   }
 

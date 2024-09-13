@@ -21,10 +21,6 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: SignInScreen(),
-      routes: {
-        'homePage': (context) => HomeScreen(),
-        'newPage': (context) => NewScreen(),
-      },
     );
   }
 }

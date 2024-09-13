@@ -1,3 +1,4 @@
+import 'package:agendify/shared/components/navigation_bottom_component.dart';
 import 'package:flutter/material.dart';
 
 class NewScreen extends StatefulWidget {
@@ -7,6 +8,8 @@ class NewScreen extends StatefulWidget {
 class _NewScreenState extends State<NewScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Text('Nova tela'),
+    );
   }
 }
