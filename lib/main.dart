@@ -2,6 +2,7 @@ import 'package:agendify/screens/auth/ui/screens/signin_screen.dart';
 import 'package:agendify/screens/home/screens/home_screen.dart';
 import 'package:agendify/screens/main/screens/main_screen.dart';
 import 'package:agendify/screens/new/screens/new_screen.dart';
+import 'package:agendify/shared/services/storage_service.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: MainScreen(),
+      home: SignInScreen(),
     );
   }
 }

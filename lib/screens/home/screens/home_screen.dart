@@ -3,6 +3,7 @@ import 'package:agendify/shared/models/person_model.dart';
 import 'package:agendify/shared/models/scheduling_model.dart';
 import 'package:agendify/shared/components/drop_list_component.dart';
 import 'package:agendify/shared/components/navigation_bottom_component.dart';
+import 'package:agendify/shared/services/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -13,6 +14,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Scheduling> schedules = [];
+  StorageService storage = StorageService();
+  List<Widget> listWidget = [];
 
   Scheduling _newScheduling() {
     Person person = Person('12345-6', 'Kaik Dorvalo');
@@ -24,10 +27,48 @@ class _HomeScreenState extends State<HomeScreen> {
   DateTime _selectedDate = DateTime.now();
   String _formattedDate = '';
 
+  Future<List<Scheduling>> loadAgendas() async {
+    List<dynamic> jsonList = await storage.getAgendas();
+    List<Scheduling> agendas =
+        jsonList.map((json) => Scheduling.fromJson(json)).toList();
+
+    return agendas;
+  }
+
+  void setList() async {
+    List<Scheduling> list = await loadAgendas();
+    List<Scheduling> filteredList = [];
+    list.forEach((item) {
+      int day1 = item.date.day;
+      int month1 = item.date.month;
+      int year1 = item.date.year;
+
+      int day2 = _selectedDate.day;
+      int month2 = _selectedDate.month;
+      int year2 = _selectedDate.year;
+      if (day1 == day2 && month1 == month2 && year1 == year2) {
+        filteredList.add(item);
+      }
+    });
+
+    List<Widget> widgets = [];
+
+    filteredList.forEach((item) {
+      widgets.add(ListItem(scheduling: item));
+    });
+
+    setState(() {
+      listWidget = widgets;
+    });
+
+    print(listWidget);
+  }
+
   @override
   void initState() {
     super.initState();
     _formattedDate = _formatDate(_selectedDate);
+    setList();
   }
   //
 
@@ -43,6 +84,8 @@ class _HomeScreenState extends State<HomeScreen> {
         _selectedDate = picked;
         _formattedDate = _formatDate(_selectedDate);
       });
+
+      setList();
     }
   }
 
@@ -124,12 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
               height: 15.0,
             ),
             Expanded(
-              child: ListView(
-                children: <Widget>[
-                  ListItem(scheduling: _newScheduling()),
-                  ListItem(scheduling: _newScheduling()),
-                ],
-              ),
+              child: ListView(children: listWidget),
             )
           ],
         ),

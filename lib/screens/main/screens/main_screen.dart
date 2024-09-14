@@ -1,6 +1,7 @@
 import 'package:agendify/screens/home/screens/home_screen.dart';
 import 'package:agendify/screens/new/screens/new_screen.dart';
 import 'package:agendify/shared/components/navigation_bottom_component.dart';
+import 'package:agendify/shared/services/storage_service.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
@@ -12,16 +13,26 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreen extends State<MainScreen> {
   int selectedIndex = 0;
-
-  final List<Widget> _screens = [
-    HomeScreen(),
-    NewScreen(),
-  ];
+  StorageService storage = StorageService();
 
   void changeIndex(int index) {
     setState(() {
       selectedIndex = index;
     });
+  }
+
+  List<Widget> _screens = [];
+
+  @override
+  void initState() {
+    super.initState();
+    storage.clearStorage();
+    _screens = [
+      HomeScreen(),
+      NewScreen(
+        changePage: changeIndex,
+      ),
+    ];
   }
 
   @override
