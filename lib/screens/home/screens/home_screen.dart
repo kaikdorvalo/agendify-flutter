@@ -60,8 +60,6 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       listWidget = widgets;
     });
-
-    print(listWidget);
   }
 
   @override
