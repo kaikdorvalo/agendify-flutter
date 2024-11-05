@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:agendify/screens/new/components/date_input_component.dart';
 import 'package:agendify/screens/new/components/submit_buttom_component.dart';
 import 'package:agendify/screens/new/components/text_input_component.dart';
-import 'package:agendify/shared/components/navigation_bottom_component.dart';
 import 'package:agendify/shared/models/person_model.dart';
 import 'package:agendify/shared/models/scheduling_model.dart';
 import 'package:agendify/shared/services/storage_service.dart';
+import 'package:agendify/shared/validators/validate_cpf.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
@@ -59,21 +59,15 @@ class _NewScreenState extends State<NewScreen> {
     return scheduling;
   }
 
-  Future<List<dynamic>> loadAgendas() async {
-    var jsonList = await service.getAll();
-    List<dynamic> list = jsonDecode(jsonList) as List<Scheduling>;
-
-    // List<Scheduling> agendas =
-    //     jsonList.map((json) => Scheduling.fromJson(json)).toList();
-
-    return list;
-  }
-
   void buttonClick() async {
-    _formKey.currentState?.save();
+    if (name.length != 0 &&
+        CPFValidator.isValid(cpf) &&
+        description.length != 0) {
+      _formKey.currentState?.save();
 
-    Scheduling newItem = createScheudling(name, cpf, description, date);
-    await service.create(newItem);
+      Scheduling newItem = createScheudling(name, cpf, description, date);
+      await service.create(newItem);
+    }
   }
 
   MaskTextInputFormatter cpfMask = MaskTextInputFormatter(

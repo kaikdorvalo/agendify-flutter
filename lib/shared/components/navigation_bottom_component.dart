@@ -1,4 +1,3 @@
-import 'package:agendify/screens/new/screens/new_screen.dart';
 import 'package:flutter/material.dart';
 
 class NavigationBottom extends StatefulWidget {

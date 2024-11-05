@@ -1,4 +1,3 @@
-import 'package:agendify/shared/models/scheduling_model.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 

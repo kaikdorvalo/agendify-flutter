@@ -1,24 +1,20 @@
+import 'dart:convert';
+
 import 'package:agendify/shared/models/scheduling_model.dart';
 import 'package:agendify/shared/services/abstract_api.dart';
 
 class StorageService extends AbstractApi<Scheduling> {
   StorageService(super._recurso);
+
+  Future<List<Scheduling>> loadAgendas() async {
+    var jsonList = await getAll();
+    List<dynamic> list = jsonDecode(jsonList);
+
+    List<Scheduling> agendas =
+        list.map((json) => Scheduling.fromJson(json)).toList();
+
+    return agendas;
+  }
+
+  //fazer o create validante cpf, nome null ,desc etc
 }
-
-// final LocalStorage storage = LocalStorage('app_agenda');
-
-// Future<void> saveAgenda(List<dynamic> items) async {
-//   await storage.ready;
-//   storage.setItem('agendas', items);
-// }
-
-// Future<List<dynamic>> getAgendas() async {
-//   await storage.ready;
-//   return storage.getItem('agendas') ?? [];
-// }
-
-// Future<void> clearStorage() async {
-//   await storage.ready;
-
-//   return storage.clear();
-// }

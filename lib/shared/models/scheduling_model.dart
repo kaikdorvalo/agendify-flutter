@@ -1,5 +1,4 @@
 import 'package:agendify/shared/models/person_model.dart';
-import 'dart:convert';
 
 class Scheduling {
   Person person;

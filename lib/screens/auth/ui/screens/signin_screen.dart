@@ -1,4 +1,3 @@
-import 'package:agendify/screens/home/screens/home_screen.dart';
 import 'package:agendify/screens/main/screens/main_screen.dart';
 import 'package:flutter/material.dart';
 

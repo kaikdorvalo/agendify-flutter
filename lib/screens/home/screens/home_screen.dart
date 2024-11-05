@@ -1,40 +1,30 @@
 import 'dart:convert';
 
 import 'package:agendify/screens/home/components/list_item_component.dart';
-import 'package:agendify/shared/models/person_model.dart';
 import 'package:agendify/shared/models/scheduling_model.dart';
-import 'package:agendify/shared/components/drop_list_component.dart';
-import 'package:agendify/shared/components/navigation_bottom_component.dart';
 import 'package:agendify/shared/services/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
+  StorageService service;
+
+  HomeScreen(this.service, {super.key});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Scheduling> schedules = [];
-  StorageService service = StorageService('agenda');
 
   List<Widget> listWidget = [];
 
   DateTime _selectedDate = DateTime.now();
   String _formattedDate = '';
 
-  Future<List<Scheduling>> loadAgendas() async {
-    var jsonList = await service.getAll();
-    List<dynamic> list = jsonDecode(jsonList);
-
-    List<Scheduling> agendas =
-        list.map((json) => Scheduling.fromJson(json)).toList();
-
-    return agendas;
-  }
-
   void setList() async {
-    List<dynamic> list = await loadAgendas();
+    List<dynamic> list = await widget.service.loadAgendas();
     List<Scheduling> filteredList = [];
     list.forEach((item) {
       int day1 = item.date.day;
