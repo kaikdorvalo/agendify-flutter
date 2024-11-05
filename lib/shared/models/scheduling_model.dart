@@ -1,4 +1,5 @@
 import 'package:agendify/shared/models/person_model.dart';
+import 'dart:convert';
 
 class Scheduling {
   Person person;
@@ -18,10 +19,12 @@ class Scheduling {
 
   factory Scheduling.fromJson(Map<String, dynamic> json) {
     Person person = Person(json['cpf'], json['name']);
-    return Scheduling(
+    Scheduling scheduling = Scheduling(
       person,
       json['description'],
       DateTime.parse(json['date']),
     );
+    print(scheduling);
+    return scheduling;
   }
 }

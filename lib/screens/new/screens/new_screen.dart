@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:agendify/screens/new/components/date_input_component.dart';
 import 'package:agendify/screens/new/components/submit_buttom_component.dart';
 import 'package:agendify/screens/new/components/text_input_component.dart';
@@ -24,7 +26,7 @@ class _NewScreenState extends State<NewScreen> {
   String description = '';
   DateTime date = DateTime.now();
 
-  StorageService storage = StorageService();
+  StorageService service = StorageService('agenda');
 
   void changeDate(DateTime value) {
     setState(() {
@@ -57,36 +59,21 @@ class _NewScreenState extends State<NewScreen> {
     return scheduling;
   }
 
-  Future<List<Scheduling>> loadAgendas() async {
-    List<dynamic> jsonList = await storage.getAgendas();
-    List<Scheduling> agendas =
-        jsonList.map((json) => Scheduling.fromJson(json)).toList();
+  Future<List<dynamic>> loadAgendas() async {
+    var jsonList = await service.getAll();
+    List<dynamic> list = jsonDecode(jsonList) as List<Scheduling>;
 
-    return agendas;
+    // List<Scheduling> agendas =
+    //     jsonList.map((json) => Scheduling.fromJson(json)).toList();
+
+    return list;
   }
 
   void buttonClick() async {
     _formKey.currentState?.save();
 
-    List<dynamic> currentItens = await loadAgendas();
-
     Scheduling newItem = createScheudling(name, cpf, description, date);
-
-    bool exists =
-        currentItens.any((item) => item.person.cpf == newItem.person.cpf);
-
-    if (!exists) {
-      currentItens.add(newItem);
-
-      currentItens.sort((a, b) => a.date.compareTo(b.date));
-
-      List<dynamic> jsonList =
-          currentItens.map((item) => item.toJson()).toList();
-
-      await storage.saveAgenda(jsonList);
-
-      widget.changePage(0);
-    }
+    await service.create(newItem);
   }
 
   MaskTextInputFormatter cpfMask = MaskTextInputFormatter(

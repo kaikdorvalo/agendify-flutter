@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:agendify/screens/home/components/list_item_component.dart';
 import 'package:agendify/shared/models/person_model.dart';
 import 'package:agendify/shared/models/scheduling_model.dart';
@@ -14,29 +16,25 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Scheduling> schedules = [];
-  StorageService storage = StorageService();
-  List<Widget> listWidget = [];
+  StorageService service = StorageService('agenda');
 
-  Scheduling _newScheduling() {
-    Person person = Person('12345-6', 'Kaik Dorvalo');
-    Scheduling scheduling =
-        Scheduling(person, 'Realizar extração de siso', DateTime.now());
-    return scheduling;
-  }
+  List<Widget> listWidget = [];
 
   DateTime _selectedDate = DateTime.now();
   String _formattedDate = '';
 
   Future<List<Scheduling>> loadAgendas() async {
-    List<dynamic> jsonList = await storage.getAgendas();
+    var jsonList = await service.getAll();
+    List<dynamic> list = jsonDecode(jsonList);
+
     List<Scheduling> agendas =
-        jsonList.map((json) => Scheduling.fromJson(json)).toList();
+        list.map((json) => Scheduling.fromJson(json)).toList();
 
     return agendas;
   }
 
   void setList() async {
-    List<Scheduling> list = await loadAgendas();
+    List<dynamic> list = await loadAgendas();
     List<Scheduling> filteredList = [];
     list.forEach((item) {
       int day1 = item.date.day;

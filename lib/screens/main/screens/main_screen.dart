@@ -13,7 +13,6 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreen extends State<MainScreen> {
   int selectedIndex = 0;
-  StorageService storage = StorageService();
 
   void changeIndex(int index) {
     setState(() {
@@ -26,7 +25,6 @@ class _MainScreen extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-    storage.clearStorage();
     _screens = [
       HomeScreen(),
       NewScreen(
