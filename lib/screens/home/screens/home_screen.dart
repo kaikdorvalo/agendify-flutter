@@ -2,14 +2,15 @@ import 'dart:convert';
 
 import 'package:agendify/screens/home/components/list_item_component.dart';
 import 'package:agendify/shared/models/scheduling_model.dart';
+import 'package:agendify/shared/services/http_methods.dart';
 import 'package:agendify/shared/services/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
-  StorageService service;
+  StorageService service = StorageService('agenda', HttpMethods());
 
-  HomeScreen(this.service, {super.key});
+  HomeScreen({super.key});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();

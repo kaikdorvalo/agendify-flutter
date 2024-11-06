@@ -26,7 +26,7 @@ class _MainScreen extends State<MainScreen> {
   void initState() {
     super.initState();
     _screens = [
-      HomeScreen(StorageService('agenda')),
+      HomeScreen(),
       NewScreen(
         changePage: changeIndex,
       ),

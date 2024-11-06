@@ -23,7 +23,6 @@ class Scheduling {
       json['description'],
       DateTime.parse(json['date']),
     );
-    print(scheduling);
     return scheduling;
   }
 }

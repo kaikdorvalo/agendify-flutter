@@ -1,17 +1,16 @@
-import 'dart:convert';
-
 import 'package:agendify/screens/new/components/date_input_component.dart';
 import 'package:agendify/screens/new/components/submit_buttom_component.dart';
 import 'package:agendify/screens/new/components/text_input_component.dart';
 import 'package:agendify/shared/models/person_model.dart';
 import 'package:agendify/shared/models/scheduling_model.dart';
+import 'package:agendify/shared/services/http_methods.dart';
 import 'package:agendify/shared/services/storage_service.dart';
-import 'package:agendify/shared/validators/validate_cpf.dart';
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class NewScreen extends StatefulWidget {
   final Function(int) changePage;
+  StorageService service = StorageService('agenda', HttpMethods());
 
   NewScreen({Key? key, required this.changePage}) : super(key: key);
 
@@ -25,8 +24,6 @@ class _NewScreenState extends State<NewScreen> {
   String cpf = '';
   String description = '';
   DateTime date = DateTime.now();
-
-  StorageService service = StorageService('agenda');
 
   void changeDate(DateTime value) {
     setState(() {
@@ -60,14 +57,10 @@ class _NewScreenState extends State<NewScreen> {
   }
 
   void buttonClick() async {
-    if (name.length != 0 &&
-        CPFValidator.isValid(cpf) &&
-        description.length != 0) {
-      _formKey.currentState?.save();
+    _formKey.currentState?.save();
 
-      Scheduling newItem = createScheudling(name, cpf, description, date);
-      await service.create(newItem);
-    }
+    Scheduling newItem = createScheudling(name, cpf, description, date);
+    await widget.service.saveScheduling(newItem);
   }
 
   MaskTextInputFormatter cpfMask = MaskTextInputFormatter(

@@ -1,13 +1,17 @@
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
+import 'package:agendify/shared/services/http_methods.dart';
 
 abstract class AbstractApi<T> {
   final String urlLocalHost = "http://localhost:3000";
 
   String _recurso;
+  HttpMethods http;
 
-  AbstractApi(this._recurso);
+  AbstractApi(
+    this._recurso,
+    HttpMethods this.http,
+  );
 
   Future<String> getAll() async {
     var response = await http.get(Uri.parse("$urlLocalHost/$_recurso"));
@@ -15,19 +19,19 @@ abstract class AbstractApi<T> {
   }
 
   Future<String> create(dynamic data) async {
-    var response = await http.post(Uri.parse("$urlLocalHost/$_recurso"),
-        body: jsonEncode(data));
+    var response =
+        await http.post(Uri.parse("$urlLocalHost/$_recurso"), jsonEncode(data));
     return response.body;
   }
 
-  Future<String> delete(String id) async {
+  Future<String> deleteS(String id) async {
     var response = await http.delete(Uri.parse("$urlLocalHost/$_recurso/$id"));
     return response.body;
   }
 
   Future<String> update(String id, dynamic body) async {
-    var response = await http.put(Uri.parse("$urlLocalHost/$_recurso/$id"),
-        body: jsonEncode(body));
+    var response = await http.put(
+        Uri.parse("$urlLocalHost/$_recurso/$id"), jsonEncode(body));
     return response.body;
   }
 }
