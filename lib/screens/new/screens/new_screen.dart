@@ -60,7 +60,8 @@ class _NewScreenState extends State<NewScreen> {
     _formKey.currentState?.save();
 
     Scheduling newItem = createScheudling(name, cpf, description, date);
-    await widget.service.saveScheduling(newItem);
+    var saved = await widget.service.saveScheduling(newItem);
+    widget.changePage(0);
   }
 
   MaskTextInputFormatter cpfMask = MaskTextInputFormatter(

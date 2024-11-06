@@ -1,5 +1,6 @@
 import 'package:agendify/screens/home/screens/home_screen.dart';
 import 'package:agendify/screens/new/screens/new_screen.dart';
+import 'package:agendify/screens/profile/components/profile_screen.dart';
 import 'package:agendify/shared/components/navigation_bottom_component.dart';
 import 'package:agendify/shared/services/storage_service.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class _MainScreen extends State<MainScreen> {
       NewScreen(
         changePage: changeIndex,
       ),
+      ProfileScreen()
     ];
   }
 
