@@ -12,7 +12,7 @@ import 'package:http/http.dart' as http;
 final class HttpMethodsMock extends Mock implements HttpMethods {}
 
 void main() {
-  test('Should get all scheduling and return a List of Schedule', () async {
+  test('Use case: Should get all scheduling', () async {
     HttpMethodsMock httpMock = HttpMethodsMock();
     StorageService service = StorageService('agenda', httpMock);
 
@@ -44,7 +44,7 @@ void main() {
     expect(res[1].person.nome, "Vitor");
   });
 
-  test("Should save Scheduling", () async {
+  test("Use case: Should save Scheduling", () async {
     HttpMethodsMock httpMock = HttpMethodsMock();
     StorageService service = StorageService('agenda', httpMock);
 
