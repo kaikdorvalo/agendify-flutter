@@ -1,11 +1,10 @@
 import 'dart:convert';
 
-import 'package:agendify/shared/models/person_model.dart';
-import 'package:agendify/shared/models/scheduling_model.dart';
-import 'package:agendify/shared/services/http_methods.dart';
-import 'package:agendify/shared/services/storage_service.dart';
-import 'package:flutter/material.dart';
+import 'package:agendify/features/scheduling/domain/person_entity.dart';
+import 'package:agendify/features/scheduling/domain/scheduling_entity.dart';
+import 'package:agendify/features/scheduling/data/scheduling_service.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:agendify/core/service/http_methods.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:http/http.dart' as http;
 
@@ -14,7 +13,7 @@ final class HttpMethodsMock extends Mock implements HttpMethods {}
 void main() {
   test('Use case: Get all scheduling', () async {
     HttpMethodsMock httpMock = HttpMethodsMock();
-    StorageService service = StorageService('agenda', httpMock);
+    SchedulingService service = SchedulingService('agenda', httpMock);
 
     final jsonList = jsonEncode([
       {
@@ -46,10 +45,11 @@ void main() {
 
   test("Use case: Save Scheduling", () async {
     HttpMethodsMock httpMock = HttpMethodsMock();
-    StorageService service = StorageService('agenda', httpMock);
+    SchedulingService service = SchedulingService('agenda', httpMock);
 
-    Person person = Person('876.618.400-22', 'Kaik');
-    Scheduling scheduling = Scheduling(person, 'Extrair siso', DateTime.now());
+    PersonEntity person = PersonEntity('876.618.400-22', 'Kaik');
+    SchedulingEntity scheduling =
+        SchedulingEntity(person, 'Extrair siso', DateTime.now());
 
     final json = jsonEncode(
       {
@@ -73,10 +73,11 @@ void main() {
 
   test("Use case: don't save Scheduling if person name is empty", () async {
     HttpMethodsMock httpMock = HttpMethodsMock();
-    StorageService service = StorageService('agenda', httpMock);
+    SchedulingService service = SchedulingService('agenda', httpMock);
 
-    Person person = Person('876.618.400-22', '');
-    Scheduling scheduling = Scheduling(person, 'Extrair siso', DateTime.now());
+    PersonEntity person = PersonEntity('876.618.400-22', '');
+    SchedulingEntity scheduling =
+        SchedulingEntity(person, 'Extrair siso', DateTime.now());
 
     final json = jsonEncode(
       {
@@ -100,10 +101,10 @@ void main() {
 
   test("Use case: don't save Scheduling if description is empty", () async {
     HttpMethodsMock httpMock = HttpMethodsMock();
-    StorageService service = StorageService('agenda', httpMock);
+    SchedulingService service = SchedulingService('agenda', httpMock);
 
-    Person person = Person('876.618.400-22', 'Kaik');
-    Scheduling scheduling = Scheduling(person, '', DateTime.now());
+    PersonEntity person = PersonEntity('876.618.400-22', 'Kaik');
+    SchedulingEntity scheduling = SchedulingEntity(person, '', DateTime.now());
 
     final json = jsonEncode(
       {
@@ -127,10 +128,11 @@ void main() {
 
   test("Use case: don't save Scheduling when is not valid cpf", () async {
     HttpMethodsMock httpMock = HttpMethodsMock();
-    StorageService service = StorageService('agenda', httpMock);
+    SchedulingService service = SchedulingService('agenda', httpMock);
 
-    Person person = Person('871.618.400-22', 'Kaik');
-    Scheduling scheduling = Scheduling(person, 'Extrair siso', DateTime.now());
+    PersonEntity person = PersonEntity('871.618.400-22', 'Kaik');
+    SchedulingEntity scheduling =
+        SchedulingEntity(person, 'Extrair siso', DateTime.now());
 
     final json = jsonEncode(
       {
