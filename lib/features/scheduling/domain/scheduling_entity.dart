@@ -1,11 +1,12 @@
 import 'package:agendify/features/scheduling/domain/person_entity.dart';
 
 class SchedulingEntity {
+  String? id;
   PersonEntity person;
   String description;
   DateTime date;
 
-  SchedulingEntity(this.person, this.description, this.date);
+  SchedulingEntity(this.person, this.description, this.date, {this.id});
 
   Map<String, dynamic> toJson() {
     return {
@@ -22,6 +23,7 @@ class SchedulingEntity {
       person,
       json['description'],
       DateTime.parse(json['date']),
+      id: json['id'],
     );
     return scheduling;
   }

@@ -16,6 +16,13 @@ class _ListItemState extends State<ListItem> {
     return DateFormat('dd/MM/yyyy').format(date);
   }
 
+  bool showButtons() {
+    if (widget.scheduling.id != null) {
+      return true;
+    }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,7 +33,7 @@ class _ListItemState extends State<ListItem> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
                 top: 20.0, left: 20.0, right: 20.0, bottom: 10.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,56 +41,64 @@ class _ListItemState extends State<ListItem> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      widget.scheduling.person.nome,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15.0,
+                    Expanded(
+                      child: Text(
+                        widget.scheduling.person.nome,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 15.0,
+                        ),
                       ),
                     ),
-                    Row(
-                      children: [
-                        Container(
-                          padding: EdgeInsets.all(4.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.0),
-                            color: Color(0xFFF63536),
+                    const SizedBox(
+                      width: 20.0,
+                    ),
+                    Visibility(
+                      visible: showButtons(),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(4.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: const Color(0xFFF63536),
+                            ),
+                            child: Row(
+                              children: [
+                                GestureDetector(
+                                  child: const Icon(
+                                    Icons.delete,
+                                    color: Color(0xFFC2D1D0),
+                                    size: 15.0,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                          child: Row(
-                            children: [
-                              GestureDetector(
-                                child: const Icon(
-                                  Icons.delete,
-                                  color: Color(0xFFC2D1D0),
-                                  size: 15.0,
-                                ),
-                              )
-                            ],
+                          const SizedBox(
+                            width: 15.0,
                           ),
-                        ),
-                        SizedBox(
-                          width: 15.0,
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(4.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.0),
-                            color: Color(0xFF2194F2),
+                          Container(
+                            padding: const EdgeInsets.all(4.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5.0),
+                              color: const Color(0xFF2194F2),
+                            ),
+                            child: Row(
+                              children: [
+                                GestureDetector(
+                                  child: const Icon(
+                                    Icons.edit,
+                                    color: Color(0xFFC2D1D0),
+                                    size: 15.0,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                          child: Row(
-                            children: [
-                              GestureDetector(
-                                child: const Icon(
-                                  Icons.edit,
-                                  color: Color(0xFFC2D1D0),
-                                  size: 15.0,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     )
                   ],
                 ),
@@ -94,7 +109,7 @@ class _ListItemState extends State<ListItem> {
                   children: [
                     Expanded(
                       child: Container(
-                        padding: const EdgeInsets.all(5.0),
+                        padding: const EdgeInsets.all(10.0),
                         color: const Color(0xFF343340),
                         child: Text(
                           widget.scheduling.description,

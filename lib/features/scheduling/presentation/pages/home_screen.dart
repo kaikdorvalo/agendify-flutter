@@ -27,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     List<dynamic> list = await widget.service.loadAgendas();
     List<SchedulingEntity> filteredList = [];
 
-    SizedBox size = SizedBox(
+    SizedBox size = const SizedBox(
       height: 20.0,
     );
 
@@ -49,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
     filteredList.forEach((item) {
       widgets.add(ListItem(scheduling: item));
       widgets.add(size);
+      print(item.id);
     });
 
     setState(() {
