@@ -1,4 +1,5 @@
 import 'package:agendify/core/components/app_bar_component.dart';
+import 'package:agendify/features/scheduling/domain/person_entity.dart';
 import 'package:agendify/features/scheduling/presentation/components/list_item_component.dart';
 import 'package:agendify/features/scheduling/domain/scheduling_entity.dart';
 import 'package:agendify/core/service/http_methods.dart';
@@ -8,8 +9,11 @@ import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   final SchedulingService service = SchedulingService('agenda', HttpMethods());
+  final Function(SchedulingEntity) editScheduling;
+  final Function(int) changePage;
 
-  HomeScreen({super.key});
+  HomeScreen(
+      {super.key, required this.editScheduling, required this.changePage});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -50,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
       widgets.add(ListItem(
         scheduling: item,
         deleteScheduling: _deleteScheduling,
+        editScheduling: _editScheduling,
       ));
       widgets.add(size);
       print(item.id);
@@ -65,6 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _formattedDate = _formatDate(_selectedDate);
     setList();
+    // widget.editScheduling(
+    //     SchedulingEntity(PersonEntity('', ''), '', DateTime.now()));
   }
   //
 
@@ -92,6 +99,10 @@ class _HomeScreenState extends State<HomeScreen> {
         setList();
       }
     }
+  }
+
+  void _editScheduling(SchedulingEntity scheduling) {
+    widget.editScheduling(scheduling);
   }
 
   String _formatDate(DateTime date) {

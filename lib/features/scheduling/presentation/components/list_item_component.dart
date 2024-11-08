@@ -5,11 +5,13 @@ import 'package:intl/intl.dart';
 class ListItem extends StatefulWidget {
   final SchedulingEntity scheduling;
   final Function(String?)? deleteScheduling;
+  final Function(SchedulingEntity)? editScheduling;
 
   ListItem({
     Key? key,
     required this.scheduling,
     this.deleteScheduling,
+    this.editScheduling,
   }) : super(key: key);
 
   @override
@@ -22,7 +24,7 @@ class _ListItemState extends State<ListItem> {
   }
 
   bool showButtons() {
-    if (widget.scheduling.id != null) {
+    if (widget.scheduling.id != null && widget.scheduling.id != '') {
       return true;
     }
     return false;
@@ -104,6 +106,11 @@ class _ListItemState extends State<ListItem> {
                                     color: Color(0xFFC2D1D0),
                                     size: 15.0,
                                   ),
+                                  onTap: () {
+                                    if (widget.editScheduling != null) {
+                                      widget.editScheduling!(widget.scheduling);
+                                    }
+                                  },
                                 )
                               ],
                             ),

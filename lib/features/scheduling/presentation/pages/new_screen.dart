@@ -16,8 +16,11 @@ class NewScreen extends StatefulWidget {
   SchedulingEntity? scheduling;
   SchedulingService service = SchedulingService('agenda', HttpMethods());
 
-  NewScreen({Key? key, required this.changePage, this.scheduling})
-      : super(key: key);
+  NewScreen({
+    Key? key,
+    required this.changePage,
+    this.scheduling,
+  }) : super(key: key);
 
   @override
   _NewScreenState createState() => _NewScreenState();
@@ -40,6 +43,7 @@ class _NewScreenState extends State<NewScreen> {
   }
 
   void changeName(String value) {
+    print(widget.scheduling!.id);
     setState(() {
       name = value;
       widget.scheduling!.person.nome = name;
@@ -84,14 +88,21 @@ class _NewScreenState extends State<NewScreen> {
   }
 
   void initState() {
-    if (widget.scheduling == null) {
-      PersonEntity person = PersonEntity('', '');
-      widget.scheduling = SchedulingEntity(person, '', date);
-    }
-
-    if (widget.scheduling!.id == null) {
+    print(widget.scheduling!.id);
+    if (widget.scheduling!.id == null || widget.scheduling!.id == '') {
       clearScheduling(widget.scheduling!);
     }
+
+    if (widget.scheduling!.id != null && widget.scheduling!.id != '') {
+      loadEditScheduling(widget.scheduling!);
+    }
+  }
+
+  void loadEditScheduling(SchedulingEntity scheduling) {
+    changeName(scheduling.person.nome);
+    changeCpf(scheduling.person.cpf);
+    changeDescription(scheduling.description);
+    changeDate(scheduling.date);
   }
 
   MaskTextInputFormatter cpfMask = MaskTextInputFormatter(
