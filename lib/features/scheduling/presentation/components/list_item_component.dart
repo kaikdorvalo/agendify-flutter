@@ -4,8 +4,13 @@ import 'package:intl/intl.dart';
 
 class ListItem extends StatefulWidget {
   final SchedulingEntity scheduling;
+  final Function(String?)? deleteScheduling;
 
-  ListItem({Key? key, required this.scheduling}) : super(key: key);
+  ListItem({
+    Key? key,
+    required this.scheduling,
+    this.deleteScheduling,
+  }) : super(key: key);
 
   @override
   _ListItemState createState() => _ListItemState();
@@ -72,6 +77,12 @@ class _ListItemState extends State<ListItem> {
                                     color: Color(0xFFC2D1D0),
                                     size: 15.0,
                                   ),
+                                  onTap: () {
+                                    if (widget.deleteScheduling != null) {
+                                      widget.deleteScheduling!(
+                                          widget.scheduling.id);
+                                    }
+                                  },
                                 )
                               ],
                             ),

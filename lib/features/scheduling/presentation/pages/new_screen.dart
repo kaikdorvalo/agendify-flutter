@@ -107,7 +107,7 @@ class _NewScreenState extends State<NewScreen> {
           decoration: const BoxDecoration(
             color: Color(0xFF1D1D29),
           ),
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(30.0),
           child: Column(
             children: [
               ListItem(scheduling: widget.scheduling!),
@@ -123,9 +123,6 @@ class _NewScreenState extends State<NewScreen> {
                         labelText: 'Nome',
                         hint: 'Seu Nome',
                       ),
-                      const SizedBox(
-                        height: 15.0,
-                      ),
                       TextInput(
                         label: 'CPF',
                         icon: Icons.person_search,
@@ -134,9 +131,6 @@ class _NewScreenState extends State<NewScreen> {
                         hint: '000.000.00-00',
                         masks: [cpfMask],
                       ),
-                      const SizedBox(
-                        height: 15.0,
-                      ),
                       TextInput(
                         label: 'Descrição',
                         icon: Icons.description,
@@ -144,16 +138,13 @@ class _NewScreenState extends State<NewScreen> {
                         labelText: 'Descrição',
                         hint: 'Realizar extração de siso...',
                       ),
-                      const SizedBox(
-                        height: 15.0,
-                      ),
                       DateInput(
                         date: date,
                         changeDate: changeDate,
                         label: 'Data da consulta',
                       ),
                       const SizedBox(
-                        height: 35.0,
+                        height: 20.0,
                       ),
                       SubmitButton(
                         click: buttonClick,

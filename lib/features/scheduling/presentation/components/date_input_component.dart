@@ -73,12 +73,9 @@ class _DateInputState extends State<DateInput> {
                 right: 15.0,
               ),
               decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 255, 255, 255),
-                  borderRadius: BorderRadius.circular(5.0),
-                  border: Border.all(
-                    color: const Color.fromARGB(255, 143, 143, 143),
-                    width: 1.0,
-                  )),
+                color: const Color(0xFF323141),
+                borderRadius: BorderRadius.circular(5.0),
+              ),
               child: Row(
                 children: <Widget>[
                   const Icon(
@@ -88,7 +85,10 @@ class _DateInputState extends State<DateInput> {
                   const SizedBox(
                     width: 15.0,
                   ),
-                  Text(formattedDate)
+                  Text(
+                    formattedDate,
+                    style: const TextStyle(color: Colors.white),
+                  )
                 ],
               )),
         )

@@ -47,7 +47,10 @@ class _HomeScreenState extends State<HomeScreen> {
     List<Widget> widgets = [];
 
     filteredList.forEach((item) {
-      widgets.add(ListItem(scheduling: item));
+      widgets.add(ListItem(
+        scheduling: item,
+        deleteScheduling: _deleteScheduling,
+      ));
       widgets.add(size);
       print(item.id);
     });
@@ -82,6 +85,15 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void _deleteScheduling(String? id) async {
+    if (id != null) {
+      var res = await widget.service.deleteScheduling(id);
+      if (res.statusCode == 200) {
+        setList();
+      }
+    }
+  }
+
   String _formatDate(DateTime date) {
     return DateFormat('dd/MM/yyyy').format(date);
   }
@@ -95,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
           color: Color(0xFF1D1D29),
         ),
         padding: const EdgeInsets.only(
-            top: 20.0, bottom: 0, left: 20.0, right: 20.0),
+            top: 20.0, bottom: 0, left: 30.0, right: 30.0),
         child: Column(
           children: <Widget>[
             const SizedBox(

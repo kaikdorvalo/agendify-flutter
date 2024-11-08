@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:agendify/features/scheduling/domain/scheduling_entity.dart';
 import 'package:agendify/core/service/abstract/abstract_api.dart';
 import 'package:agendify/core/service/utils/validators/validate_cpf.dart';
+import 'package:http/http.dart';
 
 class SchedulingService extends AbstractApi<SchedulingEntity> {
   SchedulingService(super._recurso, super.http);
@@ -25,5 +26,10 @@ class SchedulingService extends AbstractApi<SchedulingEntity> {
       return res;
     }
     return '';
+  }
+
+  Future<Response> deleteScheduling(String id) async {
+    var res = await remove(id);
+    return res;
   }
 }

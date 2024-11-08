@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:agendify/core/service/http_methods.dart';
+import 'package:http/http.dart';
 
 abstract class AbstractApi<T> {
   final String urlLocalHost = "http://localhost:3000";
@@ -25,9 +26,9 @@ abstract class AbstractApi<T> {
     return response.body;
   }
 
-  Future<String> deleteS(String id) async {
+  Future<Response> remove(String id) async {
     var response = await http.delete(Uri.parse("$urlLocalHost/$_recurso/$id"));
-    return response.body;
+    return response;
   }
 
   Future<String> update(String id, dynamic body) async {

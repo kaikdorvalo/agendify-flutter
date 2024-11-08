@@ -46,16 +46,17 @@ class _TextInputState extends State<TextInput> {
             right: 15.0,
           ),
           decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 255, 255, 255),
-              borderRadius: BorderRadius.circular(5.0),
-              border: Border.all(
-                color: const Color.fromARGB(255, 143, 143, 143),
-                width: 1.0,
-              )),
+            color: const Color(0xFF323141),
+            borderRadius: BorderRadius.circular(5.0),
+            // border: Border.all(
+            //   color: const Color.fromARGB(255, 143, 143, 143),
+            //   width: 1.0,
+            // ),
+          ),
           child: TextFormField(
             keyboardType: TextInputType.emailAddress,
             style: const TextStyle(
-              color: Color.fromARGB(255, 0, 0, 0),
+              color: Color.fromARGB(255, 255, 255, 255),
             ),
             decoration: InputDecoration(
               hintText: widget.hint ?? '',
