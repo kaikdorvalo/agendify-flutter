@@ -34,10 +34,15 @@ class _NavigationBottomState extends State<NavigationBottom> {
         ),
       ),
       child: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.schedule),
+            label: 'Agenda',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add),

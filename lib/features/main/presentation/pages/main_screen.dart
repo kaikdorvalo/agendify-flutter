@@ -1,3 +1,4 @@
+import 'package:agendify/features/dashboard/presentation/pages/dashboard_screen.dart';
 import 'package:agendify/features/scheduling/domain/person_entity.dart';
 import 'package:agendify/features/scheduling/domain/scheduling_entity.dart';
 import 'package:agendify/features/scheduling/presentation/pages/home_screen.dart';
@@ -28,6 +29,7 @@ class _MainScreen extends State<MainScreen> {
   void initState() {
     super.initState();
     _screens = [
+      DashboardScreen(),
       HomeScreen(
         changePage: changeIndex,
       ),

@@ -1,5 +1,4 @@
 import 'package:agendify/core/components/app_bar_component.dart';
-import 'package:agendify/features/scheduling/domain/person_entity.dart';
 import 'package:agendify/features/scheduling/presentation/components/list_item_component.dart';
 import 'package:agendify/features/scheduling/domain/scheduling_entity.dart';
 import 'package:agendify/core/service/http_methods.dart';

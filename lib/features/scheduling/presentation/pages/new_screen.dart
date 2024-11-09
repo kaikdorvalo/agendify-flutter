@@ -93,7 +93,7 @@ class _NewScreenState extends State<NewScreen> {
       }
     } else {
       var saved = await widget.service.saveScheduling(newItem);
-      widget.changePage(0);
+      widget.changePage(1);
       clearScheduling(widget.scheduling!);
     }
   }
