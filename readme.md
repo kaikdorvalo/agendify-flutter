@@ -18,11 +18,12 @@ Para iniciar o servidor, faça:
 
 Para iniciar a aplicação em flutter com a vm no navegador, faça:
 
-1. Abra a pasta "flutter" com o terminal e digite o comando "flutter run -d chrome"
+1. Abra a pasta "flutter" com o terminal e digite o comando "flutter pub get" para instalar as dependências.
+2. Digite o comando "flutter run -d chrome" para iniciar a vm no navegador
 
 O nome "chrome" no comando indica o navegador que ele irá utlizar, podendo ser substituido. caso queira inciar com outro navegador digite no terminal o comando "flutter run". Esse comando irá listar todos os navegadores disponíveis, bastando pressionar a tecla númerica do navegador correspondente da lista que irá aparecer.
 
-Seu navgeador deverá abrir após o aplicativo terminar se iniciar.
+Seu navgeador deverá abrir após o aplicativo terminar de iniciar.
 
 Para realizar o login na aplicação, utile os seguintes dados de cesso fictícios:
 
