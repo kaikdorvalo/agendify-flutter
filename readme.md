@@ -24,6 +24,11 @@ O nome "chrome" no comando indica o navegador que ele irá utlizar, podendo ser 
 
 Seu navgeador deverá abrir após o aplicativo terminar se iniciar.
 
+Para realizar o login na aplicação, utile os seguintes dados de cesso fictícios:
+
+email: example@gmail.com
+senha: 123
+
 # Pontos de atenção
 
 A vm do dart no navegador pode gerar alguns problemas na hora de iniciar. Caso a tela fique branca, apresente erros ou algo do tipo, faça uma atualização da página para que ela funcione.
