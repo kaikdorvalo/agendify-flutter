@@ -22,8 +22,9 @@ class ProfileScreen extends StatelessWidget {
                   width: 150,
                   height: 150,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color: Colors.black12),
+                    borderRadius: BorderRadius.circular(100),
+                    color: const Color(0xFFD9D9D9),
+                  ),
                   child: Center(
                     child: Icon(
                       Icons.person,
@@ -37,13 +38,19 @@ class ProfileScreen extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            Row(
+            Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   "Agenda Odontológica",
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
+                Text(
+                  "example@gmail.com",
+                  style: TextStyle(
+                    color: Color(0xFF7A7A7A),
+                  ),
+                )
               ],
             )
           ],
