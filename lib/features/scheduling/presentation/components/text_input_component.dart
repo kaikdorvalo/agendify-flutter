@@ -5,6 +5,7 @@ class TextInput extends StatefulWidget {
   String label;
   String? hint;
   String? labelText;
+  String value;
   List<MaskTextInputFormatter>? masks;
   IconData icon;
   final Function(String) changeValue;
@@ -14,6 +15,7 @@ class TextInput extends StatefulWidget {
     required this.label,
     required this.icon,
     required this.changeValue,
+    required this.value,
     this.hint,
     this.labelText,
     this.masks,
@@ -24,6 +26,16 @@ class TextInput extends StatefulWidget {
 }
 
 class _TextInputState extends State<TextInput> {
+  TextEditingController controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      controller.text = widget.value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -48,10 +60,6 @@ class _TextInputState extends State<TextInput> {
           decoration: BoxDecoration(
             color: const Color(0xFF323141),
             borderRadius: BorderRadius.circular(5.0),
-            // border: Border.all(
-            //   color: const Color.fromARGB(255, 143, 143, 143),
-            //   width: 1.0,
-            // ),
           ),
           child: TextFormField(
             keyboardType: TextInputType.emailAddress,
@@ -74,6 +82,7 @@ class _TextInputState extends State<TextInput> {
               border: InputBorder.none,
             ),
             inputFormatters: widget.masks ?? [],
+            controller: controller,
             onChanged: (value) {
               widget.changeValue(value);
             },

@@ -31,9 +31,9 @@ abstract class AbstractApi<T> {
     return response;
   }
 
-  Future<String> update(String id, dynamic body) async {
+  Future<Response> update(String id, dynamic body) async {
     var response = await http.put(
         Uri.parse("$urlLocalHost/$_recurso/$id"), jsonEncode(body));
-    return response.body;
+    return response;
   }
 }

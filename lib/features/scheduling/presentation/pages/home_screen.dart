@@ -4,16 +4,15 @@ import 'package:agendify/features/scheduling/presentation/components/list_item_c
 import 'package:agendify/features/scheduling/domain/scheduling_entity.dart';
 import 'package:agendify/core/service/http_methods.dart';
 import 'package:agendify/features/scheduling/data/scheduling_service.dart';
+import 'package:agendify/features/scheduling/presentation/pages/new_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   final SchedulingService service = SchedulingService('agenda', HttpMethods());
-  final Function(SchedulingEntity) editScheduling;
   final Function(int) changePage;
 
-  HomeScreen(
-      {super.key, required this.editScheduling, required this.changePage});
+  HomeScreen({super.key, required this.changePage});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -65,6 +64,20 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void _editScheduling(SchedulingEntity scheduling) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => NewScreen(
+          changePage: widget.changePage,
+          scheduling: scheduling,
+        ),
+      ),
+    ).then((a) {
+      setList();
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -99,10 +112,6 @@ class _HomeScreenState extends State<HomeScreen> {
         setList();
       }
     }
-  }
-
-  void _editScheduling(SchedulingEntity scheduling) {
-    widget.editScheduling(scheduling);
   }
 
   String _formatDate(DateTime date) {

@@ -24,7 +24,9 @@ class _ListItemState extends State<ListItem> {
   }
 
   bool showButtons() {
-    if (widget.scheduling.id != null && widget.scheduling.id != '') {
+    if (widget.scheduling.id != null &&
+        widget.scheduling.id != '' &&
+        widget.editScheduling != null) {
       return true;
     }
     return false;

@@ -15,12 +15,16 @@ class NewScreen extends StatefulWidget {
   final Function(int) changePage;
   SchedulingEntity? scheduling;
   SchedulingService service = SchedulingService('agenda', HttpMethods());
+  String? title;
+  String? submitTitle;
 
   NewScreen({
-    Key? key,
+    super.key,
     required this.changePage,
     this.scheduling,
-  }) : super(key: key);
+    this.title,
+    this.submitTitle,
+  });
 
   @override
   _NewScreenState createState() => _NewScreenState();
@@ -43,7 +47,6 @@ class _NewScreenState extends State<NewScreen> {
   }
 
   void changeName(String value) {
-    print(widget.scheduling!.id);
     setState(() {
       name = value;
       widget.scheduling!.person.nome = name;
@@ -64,6 +67,12 @@ class _NewScreenState extends State<NewScreen> {
     });
   }
 
+  void changeId(String value) {
+    setState(() {
+      widget.scheduling!.id = value;
+    });
+  }
+
   SchedulingEntity createScheudling(
       String name, String cpf, String description, DateTime date) {
     PersonEntity person = PersonEntity(cpf, name);
@@ -75,9 +84,18 @@ class _NewScreenState extends State<NewScreen> {
     _formKey.currentState?.save();
 
     SchedulingEntity newItem = createScheudling(name, cpf, description, date);
-    var saved = await widget.service.saveScheduling(newItem);
-    widget.changePage(0);
-    clearScheduling(widget.scheduling!);
+
+    if (widget.scheduling!.id != null && widget.scheduling!.id != '') {
+      var saved = await widget.service.updateScheduling(widget.scheduling!);
+      if (saved.statusCode == 200) {
+        Navigator.pop(context);
+        clearScheduling(widget.scheduling!);
+      }
+    } else {
+      var saved = await widget.service.saveScheduling(newItem);
+      widget.changePage(0);
+      clearScheduling(widget.scheduling!);
+    }
   }
 
   void clearScheduling(SchedulingEntity scheduling) {
@@ -87,22 +105,36 @@ class _NewScreenState extends State<NewScreen> {
     scheduling.date = DateTime.now();
   }
 
-  void initState() {
-    print(widget.scheduling!.id);
-    if (widget.scheduling!.id == null || widget.scheduling!.id == '') {
-      clearScheduling(widget.scheduling!);
-    }
-
-    if (widget.scheduling!.id != null && widget.scheduling!.id != '') {
-      loadEditScheduling(widget.scheduling!);
-    }
-  }
-
   void loadEditScheduling(SchedulingEntity scheduling) {
     changeName(scheduling.person.nome);
     changeCpf(scheduling.person.cpf);
     changeDescription(scheduling.description);
     changeDate(scheduling.date);
+    changeId(scheduling.id!);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    widget.scheduling ??=
+        SchedulingEntity(PersonEntity('', ''), '', DateTime.now());
+
+    if (widget.scheduling!.id != null && widget.scheduling!.id != '') {
+      setState(() {
+        widget.title = 'Atualizar agendamento';
+        widget.submitTitle = 'Atualizar';
+      });
+      loadEditScheduling(widget.scheduling!);
+    } else {
+      setState(() {
+        widget.title = 'Realizar agendamento';
+        widget.submitTitle = 'Agendar';
+      });
+      changeName('');
+      changeCpf('');
+      changeDescription('');
+      changeDate(DateTime.now());
+    }
   }
 
   MaskTextInputFormatter cpfMask = MaskTextInputFormatter(
@@ -113,15 +145,16 @@ class _NewScreenState extends State<NewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarComponent(title: 'Novo Agendamento'),
+      appBar: AppBarComponent(title: widget.title!),
       body: Container(
           decoration: const BoxDecoration(
             color: Color(0xFF1D1D29),
           ),
-          padding: const EdgeInsets.all(30.0),
+          padding: const EdgeInsets.only(top: 30.0, left: 30.0, right: 30.0),
           child: Column(
             children: [
               ListItem(scheduling: widget.scheduling!),
+              const SizedBox(height: 20.0),
               Expanded(
                 child: Form(
                   key: _formKey,
@@ -133,6 +166,7 @@ class _NewScreenState extends State<NewScreen> {
                         changeValue: changeName,
                         labelText: 'Nome',
                         hint: 'Seu Nome',
+                        value: name,
                       ),
                       TextInput(
                         label: 'CPF',
@@ -141,6 +175,7 @@ class _NewScreenState extends State<NewScreen> {
                         labelText: 'CPF',
                         hint: '000.000.00-00',
                         masks: [cpfMask],
+                        value: cpf,
                       ),
                       TextInput(
                         label: 'Descrição',
@@ -148,6 +183,7 @@ class _NewScreenState extends State<NewScreen> {
                         changeValue: changeDescription,
                         labelText: 'Descrição',
                         hint: 'Realizar extração de siso...',
+                        value: description,
                       ),
                       DateInput(
                         date: date,
@@ -159,7 +195,11 @@ class _NewScreenState extends State<NewScreen> {
                       ),
                       SubmitButton(
                         click: buttonClick,
+                        label: widget.submitTitle!,
                       ),
+                      const SizedBox(
+                        height: 30.0,
+                      )
                     ],
                   ),
                 ),

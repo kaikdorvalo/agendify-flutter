@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 
 class SubmitButton extends StatefulWidget {
   final Function() click;
+  String label;
 
   SubmitButton({
-    Key? key,
+    super.key,
     required this.click,
-  }) : super(key: key);
+    required this.label,
+  });
 
   @override
   _SubmitButtonState createState() => _SubmitButtonState();
@@ -30,12 +32,12 @@ class _SubmitButtonState extends State<SubmitButton> {
             borderRadius: BorderRadius.circular(15.0),
             color: const Color.fromARGB(255, 33, 149, 243),
           ),
-          child: const Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                'Agendar',
-                style: TextStyle(
+                widget.label,
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 18.0,
                 ),

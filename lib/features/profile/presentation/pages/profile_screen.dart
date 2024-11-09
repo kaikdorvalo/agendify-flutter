@@ -8,7 +8,7 @@ class ProfileScreen extends StatelessWidget {
       appBar: AppBarComponent(title: 'Perfil'),
       body: Container(
         decoration: const BoxDecoration(
-          color: Color.fromARGB(255, 255, 255, 255),
+          color: Color(0xFF1D1D29),
         ),
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,

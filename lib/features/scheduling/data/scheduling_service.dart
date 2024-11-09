@@ -28,8 +28,24 @@ class SchedulingService extends AbstractApi<SchedulingEntity> {
     return '';
   }
 
+  Future<Response> updateScheduling(SchedulingEntity scheduling) async {
+    if (_validateScheduling(scheduling)) {
+      if (scheduling.id != null && scheduling.id != '') {
+        var res = await update(scheduling.id!, scheduling);
+        return res;
+      }
+    }
+    return Response('', 404);
+  }
+
   Future<Response> deleteScheduling(String id) async {
     var res = await remove(id);
     return res;
+  }
+
+  bool _validateScheduling(SchedulingEntity scheduling) {
+    return ((scheduling.person.nome.isNotEmpty &&
+        CPFValidator.isValid(scheduling.person.cpf) &&
+        scheduling.description.isNotEmpty));
   }
 }

@@ -7,9 +7,6 @@ import 'package:agendify/features/main/presentation/components/navigation_bottom
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
-  SchedulingEntity editScheduling =
-      SchedulingEntity(PersonEntity('', ''), '', DateTime.now(), id: '');
-
   MainScreen({super.key});
 
   @override
@@ -18,23 +15,6 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreen extends State<MainScreen> {
   int selectedIndex = 0;
-
-  void setEditScheduling(SchedulingEntity scheduling) async {
-    setState(() {
-      widget.editScheduling = scheduling;
-      if (widget.editScheduling != null && widget.editScheduling.id != '') {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => NewScreen(
-              changePage: changeIndex,
-              scheduling: widget.editScheduling,
-            ),
-          ),
-        );
-      }
-    });
-  }
 
   void changeIndex(int index) {
     setState(() {
@@ -50,11 +30,9 @@ class _MainScreen extends State<MainScreen> {
     _screens = [
       HomeScreen(
         changePage: changeIndex,
-        editScheduling: setEditScheduling,
       ),
       NewScreen(
         changePage: changeIndex,
-        scheduling: widget.editScheduling,
       ),
       ProfileScreen()
     ];
